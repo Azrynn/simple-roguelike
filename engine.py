@@ -8,12 +8,23 @@ def main():
     screen_width = 80
     screen_height = 50
 
+    player = Entity(int(screen_width/2), int(screen_height/2), '@', libtcod.white)
+    npc = Entity(int(screen_width/2 + 5), int(screen_height/2 + 5), '@', libtcod.red)
+
+    entities = [player, npc]
+
     map_width = 80
     map_height = 46
+
+    room_max_size = 10
+    room_min_size = 6
+    max_rooms = 10
+
     map_colors = { 
         'dark_wall' : libtcod.Color(0, 0, 100),
         'dark_ground' : libtcod.Color(50, 50, 150)}
     game_map = Map(map_width, map_height)
+    game_map.generate_rooms(max_rooms, room_min_size, room_max_size, map_height, map_height, player)
 
     libtcod.console_set_custom_font('data/arial10x10.png', libtcod.FONT_TYPE_GRAYSCALE | libtcod.FONT_LAYOUT_TCOD)
     libtcod.console_init_root(screen_width, screen_height, "Roguelike", False)
@@ -23,10 +34,7 @@ def main():
     keyboard = libtcod.Key()
     mouse = libtcod.Mouse()
 
-    player = Entity(int(screen_width/2), int(screen_height/2), '@', libtcod.white)
-    npc = Entity(int(screen_width/2 + 5), int(screen_height/2 + 5), '@', libtcod.red)
-
-    entities = [player, npc]
+    
 
     while not libtcod.console_is_window_closed():
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS, keyboard, mouse)

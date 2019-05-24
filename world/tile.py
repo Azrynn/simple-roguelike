@@ -8,3 +8,6 @@ class Tile:
             blocks_sight = blocked
         self.blocks_sight = blocks_sight
     
+    def make_passable(self):
+        self.blocked = self.blocks_sight = False
+    
